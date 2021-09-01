@@ -1,4 +1,4 @@
-
+<?php $page_session = \Config\Services::session();?>
 <?= $this->extend('layouts/frontend.php') ?>
 
 <?= $this->section('content') ?>
@@ -7,7 +7,25 @@
     <div class="row justify-content-center align-item-center">
         <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-6">
                 <h1>Register</h1>
-               
+
+
+               <?php 
+               if($page_session->getTempdata('success')): ?>
+
+<div class="alert alert-success" > <?= $page_session->getTempdata('success'); ?>
+
+</div>
+<?php endif; ?>
+<?php 
+               if($page_session->getTempdata('error')): ?>
+
+<div class="alert alert-danger" > <?= $page_session->getTempdata('error'); ?>
+
+</div>
+<?php endif; ?>
+
+
+
                 <?= form_open(); ?>
                   <div class="form-group">
                       <label for="">Username</label>
