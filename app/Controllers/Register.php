@@ -11,6 +11,7 @@ class Register extends BaseController
     public function __construct()
     {
         helper('form');
+        helper('date');
         $this->RegisterModel = new RegisterModel();
         $this->session = \Config\Services::session();
         $this->email = \Config\Services::email();
@@ -87,4 +88,55 @@ class Register extends BaseController
 
 		return view('registration/view',$data);
 	}
+  public function activate($uniid=null)
+  {
+    $data=[];
+    if(!empty($uniid))
+    {
+          $userdata=$this->RegisterModel->verifyUniid($uniid);
+          if($userdata)
+          {
+                if($this->verifyExpiryTime($userdata->activation_date))
+                {
+                       if($userdata->status=='inactive')
+                       {
+                         $status = $this->RegisterModel->updateStatus($uniid);
+                         if($status == true)
+                         {
+                           $data['success']='Account Activated succesfully';
+                         }
+                       }
+                       else
+                       {
+                        $data['success']='Your Account is already activated';
+                       }
+                }
+          }
+          else
+          {
+            $data['error']='Sorry, Activation link was expired';
+
+          }
+    }
+    else
+    {
+      $data['error']='Sorry, Unable to process your request';
+    }
+    return view ('login/activate_view',$data);
+  }
+  public function verifyExpiryTime($regTime)
+  {
+      $currTime = now();
+      $regtime = strtotime($regTime);
+      $diffTime=(int)$currTime - (int)$regTime;
+      if(3600 < $diffTime)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+  }
+
 }
