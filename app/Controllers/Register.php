@@ -60,12 +60,12 @@ class Register extends BaseController
             {
               
                  
-                $this->session->setTempdata('Succeess','Account Create Successfully. Please activate your account',3);
+                $this->session->setTempdata('success','Account Create Successfully. Please activate your account',3);
                 return redirect()->to(current_url());
               }
             else
             {
-              $this->session->setTempdata('Sorry','Account Create Successfully. Unable to  sent activation link, Contact Admin',3);
+              $this->session->setTempdata('sorry','Account Create Successfully. Unable to  sent activation link, Contact Admin',3);
               return redirect()->to(current_url());
                // $data = $email->printDebugger(['headers']);
                 //print_r($data);
