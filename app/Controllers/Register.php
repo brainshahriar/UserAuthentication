@@ -61,7 +61,7 @@ class Register extends BaseController
             {
               
                  
-                $this->session->setTempdata('success','Account Create Successfully. Please activate your account',3);
+                $this->session->setTempdata('success','Account Create Successfully. Please activate your account within 1 hour',3);
                 return redirect()->to(current_url());
               }
             else

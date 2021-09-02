@@ -7,6 +7,16 @@
     <div class="row justify-content-center align-item-center">
         <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <h1>Login</h1>
+
+<?php 
+    if(isset($validation)):?>
+    <?= $validation->listErrors()?>
+    <?php endif; ?>
+
+
+
+
+
                 <?= form_open(); ?>
                   <div class="form-group">
                       <label for="">Username</label>
